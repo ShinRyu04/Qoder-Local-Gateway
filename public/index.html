@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Qoder Proxy - Web Console</title>
+  <base href="/ui/">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark">
+  <!-- Top Bar -->
+  <header class="glass topbar">
+    <div class="brand">
+      <span class="brand-icon">◈</span>
+      <span class="brand-text">Qoder Proxy</span>
+      <span class="brand-badge">Web Console</span>
+    </div>
+    <div class="top-actions">
+      <select id="lang-select" class="lang-select" title="Bahasa / Language" aria-label="Bahasa / Language">
+        <option value="id">ID</option>
+        <option value="en">EN</option>
+      </select>
+      <button id="sidebar-toggle" class="btn-icon" data-id-title="Buka/tutup menu" data-en-title="Toggle menu" title="Buka/tutup menu">☰</button>
+      <button id="theme-toggle" class="btn-icon" data-id-title="Ganti tema" data-en-title="Toggle theme" title="Ganti tema">
+        <span class="theme-icon" id="theme-icon">🌙</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <!-- Sidebar -->
+    <aside class="glass sidebar" id="sidebar">
+      <nav class="sidebar-nav">
+        <button data-tab="dashboard" class="nav-item active">
+          <span class="nav-icon">◧</span>
+          <span class="nav-label" data-id-text="Dasbor" data-en-text="Dashboard">Dasbor</span>
+        </button>
+        <button data-tab="models" class="nav-item">
+          <span class="nav-icon">◬</span>
+          <span class="nav-label" data-id-text="Model" data-en-text="Models">Model</span>
+        </button>
+        <button data-tab="chat" class="nav-item">
+          <span class="nav-icon">✉</span>
+          <span class="nav-label" data-id-text="Tes Chat" data-en-text="Chat Test">Tes Chat</span>
+        </button>
+        <button data-tab="config" class="nav-item">
+          <span class="nav-icon">⛭</span>
+          <span class="nav-label" data-id-text="Konfigurasi" data-en-text="Config">Konfigurasi</span>
+        </button>
+        <button data-tab="accounts" class="nav-item">
+          <span class="nav-icon">◉</span>
+          <span class="nav-label" data-id-text="Akun" data-en-text="Accounts">Akun</span>
+        </button>
+        <button data-tab="usage" class="nav-item">
+          <span class="nav-icon">◐</span>
+          <span class="nav-label" data-id-text="Penggunaan / Kredit" data-en-text="Usage / Credits">Penggunaan / Kredit</span>
+        </button>
+      </nav>
+    </aside>
+
+    <!-- Sidebar Overlay (mobile) -->
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Dashboard -->
+      <section id="dashboard" class="tab-content active">
+        <div class="page-header">
+          <h2 data-id-text="Dasbor" data-en-text="Dashboard">Dasbor</h2>
+          <p class="page-desc" data-id-text="Ringkasan status layanan" data-en-text="Service status overview">Ringkasan status layanan</p>
+        </div>
+        <div id="dashboard-content">
+          <div class="loading" data-id-text="Memuat..." data-en-text="Loading...">Memuat...</div>
+        </div>
+      </section>
+
+      <!-- Models -->
+      <section id="models" class="tab-content">
+        <div class="page-header">
+          <h2 data-id-text="Model" data-en-text="Models">Model</h2>
+          <p class="page-desc" data-id-text="Daftar model yang tersedia" data-en-text="Available models">Daftar model yang tersedia</p>
+        </div>
+        <div id="models-content">
+          <div class="loading" data-id-text="Memuat..." data-en-text="Loading...">Memuat...</div>
+        </div>
+      </section>
+
+      <!-- Chat Test -->
+      <section id="chat" class="tab-content">
+        <div class="page-header">
+          <h2 data-id-text="Tes Chat" data-en-text="Chat Test">Tes Chat</h2>
+          <p class="page-desc" data-id-text="Uji percakapan dengan model" data-en-text="Test a conversation with a model">Uji percakapan dengan model</p>
+        </div>
+        <div class="chat-layout">
+          <div class="glass chat-panel">
+            <div class="chat-header">
+              <h3>Chat</h3>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+              <div class="chat-placeholder">
+                <span class="chat-placeholder-icon">✉</span>
+                <p data-id-text="Kirim pesan untuk mulai mengobrol" data-en-text="Send a message to start chatting">Kirim pesan untuk mulai mengobrol</p>
+              </div>
+            </div>
+            <div class="chat-input-area">
+              <div class="chat-model-select">
+                <select id="chat-model"></select>
+              </div>
+              <div class="chat-textarea-wrap">
+                <textarea id="chat-message" rows="3" data-id-placeholder="Tulis pesan..." data-en-placeholder="Enter your message..." placeholder="Tulis pesan..."></textarea>
+                <button id="chat-send" class="btn primary chat-send-btn" type="submit">
+                  <span class="send-icon">→</span>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Config -->
+      <section id="config" class="tab-content">
+        <div class="page-header">
+          <h2 data-id-text="Konfigurasi" data-en-text="Config">Konfigurasi</h2>
+          <p class="page-desc" data-id-text="Konfigurasi koneksi klien" data-en-text="Configure client connections">Konfigurasi koneksi klien</p>
+        </div>
+        <div id="config-content">
+          <div class="glass card">
+            <div class="card-header">
+              <span class="card-icon">◬</span>
+              <h3>Proxy API Key</h3>
+            </div>
+            <p class="card-desc" data-id-html="Jika kamu mengisi <code>PROXY_API_KEY</code> di <code>.env</code>, masukkan key-nya di sini agar konsol bisa memanggil proxy. Hanya disimpan di browser ini dan tidak dikirim ke mana pun. Kosongkan jika tidak diisi." data-en-html="If you set <code>PROXY_API_KEY</code> in <code>.env</code>, enter it here so this console can call the proxy. Stored in this browser only, never sent anywhere else. Leave empty if you did not set one.">
+              Jika kamu mengisi <code>PROXY_API_KEY</code> di <code>.env</code>, masukkan key-nya di sini agar konsol bisa memanggil proxy. Hanya disimpan di browser ini dan tidak dikirim ke mana pun. Kosongkan jika tidak diisi.
+            </p>
+            <div class="api-key-row">
+              <input
+                type="password"
+                id="api-key-input"
+                class="api-key-input"
+                placeholder="PROXY_API_KEY"
+                autocomplete="off"
+                spellcheck="false"
+              />
+              <button class="btn primary" id="api-key-save" data-id-text="Simpan" data-en-text="Save">Simpan</button>
+            </div>
+            <p id="api-key-status" class="api-key-status"></p>
+          </div>
+
+          <div class="config-grid">
+            <div class="glass card">
+              <div class="card-header">
+                <span class="card-icon">◬</span>
+                <h3>OpenAI Compatible</h3>
+              </div>
+              <p class="card-desc" data-id-text="Untuk klien yang mendukung endpoint kompatibel OpenAI:" data-en-text="For clients that support custom OpenAI-compatible endpoints:">Untuk klien yang mendukung endpoint kompatibel OpenAI:</p>
+              <div class="code-block">
+                <pre><code id="config-openai">{
+  "baseUrl": "http://127.0.0.1:3000/v1",
+  "apiKey": "your-PROXY_API_KEY"
+}</code></pre>
+                <button class="btn copy" data-target="config-openai" data-id-text="Salin" data-en-text="Copy">Salin</button>
+              </div>
+            </div>
+
+            <div class="glass card">
+              <div class="card-header">
+                <span class="card-icon">◬</span>
+                <h3>Anthropic Compatible</h3>
+              </div>
+              <p class="card-desc" data-id-text="Untuk klien yang mendukung endpoint kompatibel Anthropic:" data-en-text="For clients that support custom Anthropic-compatible endpoints:">Untuk klien yang mendukung endpoint kompatibel Anthropic:</p>
+              <div class="code-block">
+                <pre><code id="config-anthropic">ANTHROPIC_BASE_URL=http://127.0.0.1:3000
+ANTHROPIC_AUTH_TOKEN=your-PROXY_API_KEY</code></pre>
+                <button class="btn copy" data-target="config-anthropic" data-id-text="Salin" data-en-text="Copy">Salin</button>
+              </div>
+            </div>
+
+            <div class="glass card">
+              <div class="card-header">
+                <span class="card-icon">◬</span>
+                <h3>OpenCode</h3>
+              </div>
+              <p class="card-desc" data-id-text="Dipakai dengan OpenCode CLI:" data-en-text="Use with OpenCode CLI:">Dipakai dengan OpenCode CLI:</p>
+              <div class="code-block">
+                <pre><code id="config-opencode">opencode run --model qoder-cn-local/qwen3.8-max --variant high "reply OK"</code></pre>
+                <button class="btn copy" data-target="config-opencode" data-id-text="Salin" data-en-text="Copy">Salin</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Usage / Credits -->
+      <section id="usage" class="tab-content">
+        <div class="page-header">
+          <h2 data-id-text="Penggunaan / Kredit" data-en-text="Usage / Credits">Penggunaan / Kredit</h2>
+          <p class="page-desc" data-id-text="Statistik penggunaan lokal dan kuota" data-en-text="Local usage statistics and quota">Statistik penggunaan lokal dan kuota</p>
+        </div>
+        <div id="usage-content">
+          <div class="loading" data-id-text="Memuat..." data-en-text="Loading...">Memuat...</div>
+        </div>
+      </section>
+
+      <!-- Accounts / Profiles -->
+      <section id="accounts" class="tab-content">
+        <div class="page-header">
+          <h2 data-id-text="Akun" data-en-text="Accounts">Akun</h2>
+          <p class="page-desc" data-id-text="Kelola profil multi-akun dan login OAuth Qoder" data-en-text="Manage multi-account profiles and Qoder OAuth login">Kelola profil multi-akun dan login OAuth Qoder</p>
+        </div>
+        <div id="accounts-content">
+          <div class="loading" data-id-text="Memuat..." data-en-text="Loading...">Memuat...</div>
+        </div>
+        <div id="accounts-login"></div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p data-id-text="Statistik penggunaan hanya estimasi lokal. Bukan tagihan resmi Qoder atau sisa kuota." data-en-text="Usage statistics are local estimates only. They do not represent official Qoder billing or remaining quota.">Statistik penggunaan hanya estimasi lokal. Bukan tagihan resmi Qoder atau sisa kuota.</p>
+    <p data-id-text="UI ini tidak membaca, menyimpan, atau menampilkan PAT Qoder." data-en-text="This UI does not read, save, or display Qoder PAT.">UI ini tidak membaca, menyimpan, atau menampilkan PAT Qoder.</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

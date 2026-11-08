@@ -1,0 +1,55 @@
+{
+  "name": "qoder-proxy",
+  "version": "1.7.0-mod",
+  "description": "Local OpenAI/Anthropic-compatible gateway for Qoder CLI with multi-account profiles and credit metering",
+  "author": "ShinRyu04 (https://github.com/ShinRyu04)",
+  "main": "clean/server.js",
+  "files": [
+    "clean/",
+    "public/",
+    "scripts/",
+    "test/",
+    "opencode.json",
+    "start-proxy.cmd",
+    "start-ui.cmd",
+    "start-proxy-hidden.vbs",
+    "CHANGELOG.md",
+    "README.md",
+    "SECURITY.md",
+    "LICENSE",
+    ".env.example"
+  ],
+  "scripts": {
+    "start": "node clean/server.js",
+    "dev": "node clean/server.js",
+    "test": "node --test",
+    "daemon": "node scripts/daemon.js",
+    "smoke": "node scripts/smoke.js",
+    "smoke:full": "node scripts/smoke.js --full"
+  },
+  "keywords": [
+    "qoder",
+    "qoder-cn",
+    "qodercn",
+    "openai-compatible",
+    "anthropic-compatible",
+    "local-adapter",
+    "compatibility",
+    "protocol-research",
+    "streaming",
+    "tool-calls"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ShinRyu04/Qoder-Local-Gateway"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

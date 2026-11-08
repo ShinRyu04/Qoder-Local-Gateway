@@ -1,0 +1,12 @@
+node_modules/
+.env
+.env.*
+!.env.example
+*.log
+.runtime/
+/server.js
+MAINTENANCE_LOCAL.md
+usage.json
+usage-events.jsonl
+usage-target.json
+.qoder/
